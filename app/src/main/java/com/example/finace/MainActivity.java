@@ -43,24 +43,32 @@ public class MainActivity extends AppCompatActivity {
             if (capital == 0 || taxaJuros == 0 || tempo == 0) {
                 mensagem("O VALOR INFORMADO NÃO PODE SER ZERO");
             }
-            else if (jurosSimples.isChecked()) {
-                double juros = capital * (taxaJuros / 100) * tempo;
-                double montante = juros + capital;
-                DecimalFormat df1 = new DecimalFormat("#.##");
-                String montanteFormatado = df1.format(montante);
-                String jurosFormatado = df1.format(juros);
-                this.valorTotal.setText(montanteFormatado + "");
-                this.jurosGanhos.setText(jurosFormatado + "");
+            else if (capital >= 50) {
+                if (jurosSimples.isChecked()) {
+                    double juros = capital * (taxaJuros / 100) * tempo;
+                    double montante = juros + capital;
+                    DecimalFormat df1 = new DecimalFormat("#.##");
+                    String montanteFormatado = df1.format(montante);
+                    String jurosFormatado = df1.format(juros);
+                    this.valorTotal.setText(montanteFormatado + "");
+                    this.jurosGanhos.setText(jurosFormatado + "");
+                }
+                else if (jurosCompostos.isChecked()) {
+                    double taxaPorcent = taxaJuros / 100;
+                    double montante = capital * Math.pow((1 + taxaPorcent), tempo);
+                    double juros = montante - capital;
+                    DecimalFormat df2 = new DecimalFormat("#.##");
+                    String montanteFormatado = df2.format(montante);
+                    String jurosFormatado = df2.format(juros);
+                    this.valorTotal.setText(montanteFormatado + "");
+                    this.jurosGanhos.setText(jurosFormatado + "");
+                }
+                else if (!jurosSimples.isChecked() || !jurosCompostos.isChecked()) {
+                    mensagem("SELECIONE O TIPO DE JUROS");
+                }
             }
-            else if (jurosCompostos.isChecked()) {
-                double taxaPorcent = taxaJuros / 100;
-                double montante = capital * Math.pow((1 + taxaPorcent), tempo);
-                double juros = montante - capital;
-                DecimalFormat df2 = new DecimalFormat("#.##");
-                String montanteFormatado = df2.format(montante);
-                String jurosFormatado = df2.format(juros);
-                this.valorTotal.setText(montanteFormatado + "");
-                this.jurosGanhos.setText(jurosFormatado + "");
+            else{
+                mensagem("O VALOR INICIAL DE INVESTIMENTO DEVE IGUAL OU SUPERIOR A 50");
             }
         }
     }
