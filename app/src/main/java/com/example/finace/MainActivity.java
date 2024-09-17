@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             else{
-                mensagem("O VALOR INICIAL DE INVESTIMENTO DEVE IGUAL OU SUPERIOR A 50");
+                mensagem("O VALOR INICIAL DE INVESTIMENTO DEVE SER IGUAL OU SUPERIOR A 50");
             }
         }
     }
